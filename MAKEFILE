@@ -1,0 +1,17 @@
+TARGET = MULTICOL.EXE
+CC = WCC386
+CFLAGS = -za99 -ox
+OBJS = MAIN.OBJ GRAPHICS.OBJ
+
+LINK = WLINK
+LINKOPT = system dos4g 
+
+
+$(TARGET) : $(OBJS) makefile
+	$(LINK) name $(TARGET) file { $(OBJS) }
+
+.c.obj : .autodepend
+	$(CC) $(CFLAGS) $*.c
+
+clean : .SYMBOLIC
+	del $(OBJS) $(TARGET)
