@@ -23,10 +23,17 @@ int checkKeyBuf(void)
 
 static void drawTestPattern()
 {
+#if defined(__386__)&&defined(__DOS__)
 	volatile unsigned char* b=(unsigned char*)(0x000a8000);
 	volatile unsigned char* r=(unsigned char*)(0x000b0000);
 	volatile unsigned char* g=(unsigned char*)(0x000b8000);
 	volatile unsigned char* e=(unsigned char*)(0x000e0000);
+#else
+	unsigned char far *b=(unsigned char far*)MK_FP(0xa800,0x0);
+	unsigned char far *r=(unsigned char far*)MK_FP(0xb000,0x0);
+	unsigned char far *g=(unsigned char far*)MK_FP(0xb800,0x0);
+	unsigned char far *e=(unsigned char far*)MK_FP(0xe000,0x0);
+#endif
 
 	for (int y=0;y<400;++y)
 	{
